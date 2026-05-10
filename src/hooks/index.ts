@@ -1,6 +1,13 @@
 /**
- * Public hooks barrel. Scaffold — `useVoiceRecording` is the headline export
- * and will land with the composer code over the coming PRs.
+ * Public hooks for `@octavian-tocan/react-chat-composer`. Importable from
+ * `@octavian-tocan/react-chat-composer/hooks`.
  */
 
-export {};
+export { type UsePersistedStateOptions, usePersistedState } from './usePersistedState.js';
+export { type UseTooltipDropdownReturn, useTooltipDropdown } from './useTooltipDropdown.js';
+export {
+	type UseVoiceRecordingOptions,
+	type UseVoiceRecordingResult,
+	useVoiceRecording,
+	type VoiceRecordingStatus,
+} from './useVoiceRecording.js';
