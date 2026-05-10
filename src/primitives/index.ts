@@ -1,7 +1,16 @@
 /**
  * Reusable primitives extracted from the composer for consumers that want
- * the same visual without the full composer shell. Scaffold — exports will
- * land alongside the composer code over the coming PRs.
+ * the same visual without the full composer shell.
  */
 
-export {};
+export {
+	ComposerActionSelector,
+	type ComposerActionSelectorProps,
+} from './ComposerActionSelector.js';
+export {
+	ComposerActionSelectorView,
+	type ComposerActionSelectorItem,
+	type ComposerActionSelectorViewProps,
+} from './ComposerActionSelectorView.js';
+export { ProviderLogo, type ProviderLogoProps } from './ProviderLogo.js';
+export { VoiceMeter, type VoiceMeterProps } from '../composer/controls/VoiceMeter.js';
