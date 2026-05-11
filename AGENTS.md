@@ -87,6 +87,8 @@ Use conventional commit prefixes (`feat:`, `fix:`, `refactor:`, `chore:`,
 ## Versioning
 
 `semantic-release` reads conventional commits and publishes to npm
-automatically on push to `main`. The package is currently held at `0.1.0`
-(scaffold) until the host repo's PR 2 has landed and the full vendoring
-is complete.
+automatically on push to `main`. The package is feature-complete at
+`0.1.0` (unreleased) — the first publish is deferred to a deliberate
+release after Storybook + lost-pixel coverage land. Until then consumers
+clone `OctavianTocan/react-chat-composer` directly or pin via the
+git submodule in `OctavianTocan/ai-nexus`.
