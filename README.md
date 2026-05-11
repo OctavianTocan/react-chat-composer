@@ -4,11 +4,12 @@ Themable React composer for AI chat UIs — text input, file attachments,
 model + reasoning picker, voice recording, and empty-state prompt suggestions.
 Built on Tailwind v4.
 
-> **Status: scaffold (v0.1.0)** — see [TODO](#status--roadmap). The package is
-> being lifted out of pawrrtal in stages and is not yet feature-complete on
-> npm; consume it from the
-> [`feat/extract-react-chat-composer`](https://github.com/OctavianTocan/ai-nexus/tree/feat/extract-react-chat-composer)
-> branch via the git submodule under `frontend/lib/react-chat-composer/`.
+> **Status: feature-complete (v0.1.0, unreleased)** — full composer surface
+> implemented, `tsup` build green (ESM + CJS + DTS for `index` / `primitives`
+> / `hooks` / `types` + bundled `styles/theme.css` + `styles/animations.css`),
+> running in pawrrtal via the git submodule under
+> `frontend/lib/react-chat-composer/`. First npm publish pending — until then
+> consume from the submodule path or the package's `main` branch directly.
 
 ## Installation
 
@@ -77,23 +78,47 @@ In your global CSS (typically `app/globals.css`):
 - `/hooks` — `useVoiceRecording()`
 - `/types` — all public types
 
-See [docs/API.md](./docs/API.md) for the full surface (forthcoming).
+A comprehensive `docs/API.md` reference is forthcoming. Until then, types
+are the source of truth — every exported component, hook, and helper has
+TSDoc.
 
 ## Status / roadmap
 
-- [x] Package scaffold + tsup config + tsconfig + releaserc
+What ships today:
+
+- [x] Package scaffold (tsup, tsconfig, vitest, eslint, prettier,
+      semantic-release)
 - [x] Submodule integration with `OctavianTocan/ai-nexus`
-- [ ] Vendor `prompt-input-*` from AI Elements (form, textarea, attachments,
-      footer, submit)
-- [ ] Minimal `Button` + `Tooltip` from shadcn
-- [ ] `usePersistedState`, `useTooltipDropdown`, `cn` utility
-- [ ] `useVoiceRecording` (recording lifecycle + `onTranscribeAudio` swap)
-- [ ] Move ChatComposer / ChatComposerControls / ModelSelectorPopover code
-- [ ] Author `styles/theme.css` (`@theme` block, `chat-*` namespaced tokens)
-- [ ] Author `styles/animations.css` (composer-placeholder, waveform-scroll)
-- [ ] Bundle 8 monochrome provider SVGs into `<ProviderLogo />`
-- [ ] Storybook + visual regression
-- [ ] First npm publish
+- [x] Vendored `prompt-input-*` from Vercel AI Elements (form, textarea,
+      attachments, context, footer + submit)
+- [x] Minimal `Button` + Radix `Tooltip` wrapper (shadcn-derived)
+- [x] `cn`, `usePersistedState`, `useTooltipDropdown` utilities
+- [x] `useVoiceRecording` — recording lifecycle + `onTranscribeAudio` swap
+      point (consumer provides STT)
+- [x] `ChatComposer` + `ChatComposerView` (View/Container split, controlled
+      or uncontrolled text API)
+- [x] `ChatComposerControls` — AttachButton, VoiceMeter, WaveformTimeline,
+      ComposerTooltip, transcript + voice-recognition helpers
+- [x] `ModelSelectorPopover` + View + bundled `<ProviderLogo>` with inline
+      SVGs for 8 known providers (anthropic, openai, google, mistral, xai,
+      meta, deepseek, qwen) + per-model override via `ChatModelOption.logo`
+- [x] `ChatPromptSuggestions` — empty-state suggested-prompt list
+- [x] `ComposerActionSelector` — generic safety-mode-style dropdown
+      primitive, exposed for consumers to build their own permission
+      selectors
+- [x] `CHAT_MODELS_2026` sample preset + `defineChatModel` helper
+- [x] `styles/theme.css` (Tailwind v4 `@theme` block, `chat-*` tokens,
+      light + dark defaults) + `styles/animations.css`
+- [x] Self-provided `TooltipProvider` so the composer drops in without
+      consumer setup
+- [x] Built `dist/` verified: ESM + CJS + DTS for every subpath export
+
+Deferred / next:
+
+- [ ] Storybook + lost-pixel visual regression
+- [ ] First npm publish (semantic-release wired; cut the v0.1.0 tag)
+- [ ] `docs/API.md` written reference
+- [ ] Vitest unit coverage targeting 70%+ statements
 
 ## License
 
