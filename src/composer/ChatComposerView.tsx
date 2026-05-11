@@ -12,6 +12,7 @@
 import { ArrowUpIcon, MicIcon, SquareIcon } from 'lucide-react';
 import type { ChangeEvent, KeyboardEvent, ReactNode } from 'react';
 import { ModelSelectorPopover } from '../model-selector/ModelSelectorPopover.js';
+import { TooltipProvider } from '../ui/Tooltip.js';
 import {
 	PromptInputAttachment,
 	PromptInputAttachments,
@@ -231,57 +232,61 @@ export function ChatComposerView({
 }: ChatComposerViewProps): React.JSX.Element {
 	const hasContent = value.trim().length > 0;
 	return (
-		<div className={cn('relative flex w-full max-w-[48.75rem] flex-col', className)}>
-			<PromptInputForm
-				className="relative z-10 w-full"
-				inputGroupClassName="rounded-[var(--radius-chat-lg)] border border-[color:color-mix(in_oklch,var(--color-chat-border)_50%,transparent)] bg-[var(--color-chat-bg-elevated)] shadow-[var(--shadow-chat-minimal)]"
-				multiple
-				onKeyDown={onComposerKeyDown}
-				onSubmit={onSubmit}
-			>
-				<PromptInputAttachments className="px-3 pt-2 pb-0">
-					{(attachment) => <PromptInputAttachment data={attachment} />}
-				</PromptInputAttachments>
-				<div className="relative w-full self-stretch">
-					<AnimatedComposerPlaceholder isVisible={!hasContent} text={placeholder} />
-					<PromptInputTextarea
-						aria-label={ariaLabel ?? placeholder}
-						className="max-h-48 min-h-11 w-full overflow-y-auto px-3 pt-2 pb-1 text-[14px] leading-6 outline-none placeholder:text-transparent focus-visible:outline-none"
-						onChange={onTextChange}
-						placeholder=""
-						value={value}
-					/>
-				</div>
-				<PromptInputFooter className="min-h-8 px-1.5 py-1">
-					<div className="flex min-w-0 flex-1 items-center gap-1">
-						<AttachButton />
-						{isRecording || isTranscribing ? (
-							<VoiceMeter
-								elapsedSeconds={recordingSeconds}
-								isTranscribing={isTranscribing}
-								onSend={onSendRecording}
-								onStop={onStopRecording}
-							/>
-						) : (
-							footerActions ?? null
-						)}
+		// Self-provide the Radix Tooltip context so consumers do not need to wrap
+		// the composer in their own TooltipProvider.
+		<TooltipProvider disableHoverableContent>
+				<div className={cn('relative flex w-full max-w-[48.75rem] flex-col', className)}>
+				<PromptInputForm
+					className="relative z-10 w-full"
+					inputGroupClassName="rounded-[var(--radius-chat-lg)] border border-[color:color-mix(in_oklch,var(--color-chat-border)_50%,transparent)] bg-[var(--color-chat-bg-elevated)] shadow-[var(--shadow-chat-minimal)]"
+					multiple
+					onKeyDown={onComposerKeyDown}
+					onSubmit={onSubmit}
+				>
+					<PromptInputAttachments className="px-3 pt-2 pb-0">
+						{(attachment) => <PromptInputAttachment data={attachment} />}
+					</PromptInputAttachments>
+					<div className="relative w-full self-stretch">
+						<AnimatedComposerPlaceholder isVisible={!hasContent} text={placeholder} />
+						<PromptInputTextarea
+							aria-label={ariaLabel ?? placeholder}
+							className="max-h-48 min-h-11 w-full overflow-y-auto px-3 pt-2 pb-1 text-[14px] leading-6 outline-none placeholder:text-transparent focus-visible:outline-none"
+							onChange={onTextChange}
+							placeholder=""
+							value={value}
+						/>
 					</div>
-					<ComposerSendCluster
-						isRecording={isRecording}
-						isTranscribing={isTranscribing}
-						isLoading={isLoading}
-						hasContent={hasContent}
-						isVoiceSupported={isVoiceSupported}
-						models={models}
-						selectedModelId={selectedModelId}
-						onSelectModel={onSelectModel}
-						reasoningLevels={reasoningLevels}
-						selectedReasoning={selectedReasoning}
-						onSelectReasoning={onSelectReasoning}
-						onStartRecording={onStartRecording}
-					/>
-				</PromptInputFooter>
-			</PromptInputForm>
-		</div>
+					<PromptInputFooter className="min-h-8 px-1.5 py-1">
+						<div className="flex min-w-0 flex-1 items-center gap-1">
+							<AttachButton />
+							{isRecording || isTranscribing ? (
+								<VoiceMeter
+									elapsedSeconds={recordingSeconds}
+									isTranscribing={isTranscribing}
+									onSend={onSendRecording}
+									onStop={onStopRecording}
+								/>
+							) : (
+								footerActions ?? null
+							)}
+						</div>
+						<ComposerSendCluster
+							isRecording={isRecording}
+							isTranscribing={isTranscribing}
+							isLoading={isLoading}
+							hasContent={hasContent}
+							isVoiceSupported={isVoiceSupported}
+							models={models}
+							selectedModelId={selectedModelId}
+							onSelectModel={onSelectModel}
+							reasoningLevels={reasoningLevels}
+							selectedReasoning={selectedReasoning}
+							onSelectReasoning={onSelectReasoning}
+							onStartRecording={onStartRecording}
+						/>
+					</PromptInputFooter>
+				</PromptInputForm>
+			</div>
+		</TooltipProvider>
 	);
 }
