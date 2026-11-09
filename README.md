@@ -4,6 +4,10 @@ Themable React composer for AI chat UIs — text input, file attachments,
 model + reasoning picker, voice recording, and empty-state prompt suggestions.
 Built on Tailwind v4.
 
+<p align="center">
+  <img src="docs/media/composer.gif" width="760" alt="react-chat-composer in use: picking a suggested prompt, typing, attaching an image, switching to GPT-5.5 with high reasoning, and sending the message">
+</p>
+
 > **Status: feature-complete (v0.1.0, unreleased)** — full composer surface
 > implemented, `tsup` build green (ESM + CJS + DTS for `index` / `primitives`
 > / `hooks` / `types` + bundled `styles/theme.css` + `styles/animations.css`),
