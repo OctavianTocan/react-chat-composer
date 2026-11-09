@@ -130,7 +130,9 @@ export function ModelSelectorPopoverView({
 									const isActiveProvider = selectedModel?.provider === row.provider;
 									return (
 										<DropdownSubmenu>
-											<DropdownSubmenuTrigger className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-[color:color-mix(in_oklch,var(--color-chat-foreground)_4%,transparent)]">
+											<DropdownSubmenuTrigger
+												showChevron={false}
+												className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-[color:color-mix(in_oklch,var(--color-chat-foreground)_4%,transparent)]">
 												<ProviderLogo
 													provider={row.provider}
 													override={providerModels[0]?.logo}
